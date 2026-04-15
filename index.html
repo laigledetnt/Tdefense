@@ -6,9 +6,9 @@
 <title>TURRET DEFENSE — FPS</title>
 <style>
 .prevent-select {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{background:#000;overflow:hidden;font-family:'Courier New',monospace;touch-action:none;}
@@ -23,17 +23,14 @@ canvas{display:block;width:100vw;height:100vh;}
 .stat-value{font-size:18px;font-weight:bold;color:#0ff;text-shadow:0 0 10px #0ff;}
 #hp-bar-wrap{width:130px;height:4px;background:#ffffff15;border-radius:2px;margin-top:3px;}
 #hp-bar{height:100%;border-radius:2px;transition:width .3s;}
-/* Weapon display bottom center */
 #weapon-display{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:8px 18px;background:#00000099;border:1px solid #0ff4;border-radius:10px;pointer-events:none;}
 #weapon-icon{font-size:22px;}
 #weapon-name{font-size:11px;color:#0ff;letter-spacing:2px;}
 #weapon-ammo{font-size:10px;color:#0ff6;letter-spacing:1px;margin-top:2px;}
-/* Annonce vague */
 #wave-announce{position:absolute;top:36%;left:50%;transform:translate(-50%,-50%);text-align:center;opacity:0;transition:opacity .4s;pointer-events:none;}
 #wave-announce .wn-num{font-size:56px;font-weight:900;color:#ff0;text-shadow:0 0 30px #ff0,0 0 70px #ff06;letter-spacing:6px;}
 #wave-announce .wn-sub{font-size:12px;letter-spacing:8px;color:#ff08;margin-top:-6px;}
 #dmg-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 35%,#f003 100%);opacity:0;transition:opacity .08s;pointer-events:none;}
-/* MOBILE */
 #mobile-controls{position:fixed;bottom:0;left:0;width:100%;z-index:20;display:none;pointer-events:none;height:160px;}
 #joystick-zone{position:absolute;left:16px;bottom:16px;width:110px;height:110px;pointer-events:all;}
 #joystick-base{position:absolute;inset:0;border-radius:50%;border:2px solid #0ff3;background:radial-gradient(circle,#0ff06,#0ff02);}
@@ -41,13 +38,11 @@ canvas{display:block;width:100vw;height:100vh;}
 #look-zone{position:absolute;left:150px;right:140px;bottom:0;height:160px;pointer-events:all;}
 #btn-fire{position:absolute;right:24px;bottom:24px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,#f005,#f002);border:2px solid #f009;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 0 24px #f006;color:#fff;user-select:none;pointer-events:all;transition:all .1s;}
 #btn-fire.firing{background:radial-gradient(circle,#f00b,#f005);box-shadow:0 0 50px #f0fa;}
-/* SHOP */
 #shop{position:fixed;inset:0;background:#000000f5;z-index:30;display:none;overflow-y:auto;}
 #shop-inner{max-width:720px;margin:0 auto;padding:16px;}
 #shop-header{text-align:center;padding:10px 0 4px;}
 #shop-header h2{color:#0ff;font-size:20px;letter-spacing:4px;text-shadow:0 0 20px #0ff;}
 #shop-top-row{display:flex;gap:10px;align-items:stretch;margin:12px 0;}
-/* Choix d'arme */
 #weapon-select-panel{flex:0 0 auto;width:200px;background:#060616;border:1px solid #0ff2;border-radius:8px;padding:10px;}
 #weapon-select-panel h3{color:#0ff8;font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
 .wcard{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;border:1px solid transparent;cursor:pointer;transition:all .15s;margin-bottom:4px;}
@@ -59,7 +54,6 @@ canvas{display:block;width:100vw;height:100vh;}
 .wcard-name{color:#fff;font-size:11px;font-weight:bold;}
 .wcard-stats{color:#0ff7;font-size:9px;margin-top:1px;}
 .wcard-cost{color:#ff0;font-size:9px;font-weight:bold;}
-/* Arbre d'upgrades */
 #upgrade-panel{flex:1;background:#060616;border:1px solid #0ff2;border-radius:8px;padding:10px;}
 #upgrade-panel h3{color:#0ff8;font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
 .upgrade-tabs{display:flex;gap:4px;margin-bottom:10px;}
@@ -78,20 +72,17 @@ canvas{display:block;width:100vw;height:100vh;}
 .ucard-level{color:#0ff7;font-size:9px;}
 .ucard-price{color:#ff0;font-size:10px;font-weight:bold;}
 .ucard.maxed .ucard-price{color:#4f4;font-size:9px;}
-/* Credits bar */
 #shop-credits-bar{display:flex;align-items:center;justify-content:space-between;background:#00000088;border:1px solid #ff04;border-radius:6px;padding:8px 14px;margin-bottom:10px;}
 #shop-credits-val{color:#ff0;font-size:16px;font-weight:bold;}
 #shop-credits-label{color:#ff08;font-size:9px;letter-spacing:2px;}
 #btn-next{display:block;margin:10px auto 16px;background:transparent;border:2px solid #0ff;color:#0ff;padding:10px 48px;font-size:14px;cursor:pointer;border-radius:6px;font-family:monospace;letter-spacing:3px;text-shadow:0 0 10px #0ff;box-shadow:0 0 18px #0ff3;transition:all .2s;}
 #btn-next:hover,#btn-next:active{background:#0ff;color:#000;box-shadow:0 0 40px #0ff;}
-/* GAMEOVER */
 #gameover{position:fixed;inset:0;background:#000000bb;z-index:40;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
 #gameover h2{color:#f00;font-size:46px;font-weight:900;text-shadow:0 0 40px #f00;letter-spacing:6px;animation:redpulse 1s infinite;}
 #gameover p{color:#888;font-size:13px;letter-spacing:2px;}
 #gameover button{background:transparent;border:2px solid #f00;color:#f00;padding:11px 32px;cursor:pointer;font-family:monospace;font-size:14px;border-radius:5px;letter-spacing:2px;}
 #gameover button:hover{background:#f00;color:#000;}
 @keyframes redpulse{0%,100%{text-shadow:0 0 40px #f00;}50%{text-shadow:0 0 80px #f00,0 0 120px #f006;}}
-/* START */
 #startscreen{position:fixed;inset:0;background:#000;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
 #startscreen h1{color:#0ff;font-size:clamp(22px,6vw,50px);font-weight:900;letter-spacing:6px;text-shadow:0 0 30px #0ff,0 0 60px #0ff5;text-align:center;line-height:1.2;}
 #startscreen p{color:#0ff6;font-size:11px;letter-spacing:2px;text-align:center;max-width:300px;line-height:1.9;}
@@ -169,12 +160,10 @@ canvas{display:block;width:100vw;height:100vh;}
     </div>
 
     <div id="shop-top-row">
-      <!-- Choix d'arme -->
       <div id="weapon-select-panel">
         <h3>Arme active</h3>
         <div id="weapon-cards"></div>
       </div>
-      <!-- Arbre d'upgrades -->
       <div id="upgrade-panel">
         <h3>Améliorations</h3>
         <div class="upgrade-tabs" id="upgrade-tabs"></div>
@@ -238,20 +227,17 @@ const core=new THREE.Mesh(new THREE.SphereGeometry(.55,12,12),new THREE.MeshBasi
 const tLight=new THREE.PointLight(0x0088ff,4,20); tLight.position.y=3.8; tGroup.add(tLight);
 scene.add(tGroup);
 
-// ─────────────────────────────────────────────────────────────────────────────
-// WEAPONS — une seule active pendant la vague
-// ─────────────────────────────────────────────────────────────────────────────
+// ── WEAPONS ──
 const WEAPONS=[
-  {id:'laser',    name:'Laser',    icon:'🔴', baseDmg:22,  baseRate:280,  color:0xff2200, unlockWave:1,  cost:0,  owned:true,  desc:'Rayon continu', vfx:'laser'},
-  {id:'plasma',   name:'Plasma',   icon:'🔵', baseDmg:55,  baseRate:500,  color:0x00ffff, unlockWave:2,  cost:80, owned:false, desc:'Canon à plasma', vfx:'plasma'},
-  {id:'lightning',name:'Foudre',   icon:'⚡', baseDmg:12,  baseRate:800,  color:0xffff00, unlockWave:3,  cost:160,owned:false, desc:'Chaîne électrique', vfx:'lightning'},
-  {id:'void',     name:'Néant',    icon:'🟣', baseDmg:240, baseRate:1200, color:0xaa00ff, unlockWave:5,  cost:320,owned:false, desc:'Déchirure spatiale', vfx:'void'},
-  {id:'nova',     name:'Nova',     icon:'☀️', baseDmg:320, baseRate:2500, color:0xffaa00, unlockWave:7,  cost:750,owned:false, desc:'Explosion solaire AoE', vfx:'nova'},
+  // BUG FIX: ajout de slowFactor pour le plasma (0 = pas de slow, 0.5 = 50% plus lent)
+  {id:'laser',    name:'Laser',    icon:'🔴', baseDmg:22,  baseRate:280,  color:0xff2200, unlockWave:1,  cost:0,   owned:true,  desc:'Rayon continu',       vfx:'laser',     slowFactor:0,   slowDuration:0},
+  {id:'plasma',   name:'Plasma',   icon:'🔵', baseDmg:55,  baseRate:500,  color:0x00ffff, unlockWave:2,  cost:80,  owned:false, desc:'Canon à plasma',      vfx:'plasma',    slowFactor:0.5, slowDuration:2.5},
+  {id:'lightning',name:'Foudre',   icon:'⚡', baseDmg:12,  baseRate:800,  color:0xffff00, unlockWave:3,  cost:160, owned:false, desc:'Chaîne électrique',   vfx:'lightning', slowFactor:0,   slowDuration:0},
+  {id:'void',     name:'Néant',    icon:'🟣', baseDmg:240, baseRate:1200, color:0xaa00ff, unlockWave:5,  cost:320, owned:false, desc:'Déchirure spatiale',  vfx:'void',      slowFactor:0,   slowDuration:0},
+  {id:'nova',     name:'Nova',     icon:'☀️', baseDmg:320, baseRate:2500, color:0xffaa00, unlockWave:7,  cost:750, owned:false, desc:'Explosion solaire AoE',vfx:'nova',     slowFactor:0,   slowDuration:0},
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// UPGRADE TREE — style The Tower : catégories, niveaux, coûts progressifs
-// ─────────────────────────────────────────────────────────────────────────────
+// ── UPGRADE TREE ──
 const UPGRADE_CATS=[
   {id:'offense', label:'⚔ Attaque', color:'#f84'},
   {id:'defense', label:'🛡 Défense', color:'#4af'},
@@ -261,31 +247,32 @@ const UPGRADE_CATS=[
 
 const UPGRADES={
   offense:[
-    {id:'dmg',   name:'Puissance',     desc:'Dégâts +15% par niveau',   maxLv:10, base:30, grow:1.35, color:'#f44',
+    {id:'dmg',   name:'Puissance',     desc:'Dégâts +15% par niveau',    maxLv:10, base:30, grow:1.35, color:'#f44',
      apply:(lv)=>{G.dmgMult=1+lv*.15;}},
-    {id:'rof',   name:'Cadence',       desc:'Vitesse de tir +10%/niv',  maxLv:8,  base:40, grow:1.4,  color:'#fa4',
-     apply:(lv)=>{G.rofMult=1-Math.min(.7,lv*.1);}},
-    {id:'crit',  name:'Coup critique', desc:'+8% chance +20% dégâts/niv',maxLv:6, base:70, grow:1.45, color:'#f84',
+    // BUG FIX : rofMult est maintenant un diviseur direct (0..0.8) appliqué comme baseRate * (1 - rofMult)
+    {id:'rof',   name:'Cadence',       desc:'Vitesse de tir +10%/niv',   maxLv:8,  base:40, grow:1.4,  color:'#fa4',
+     apply:(lv)=>{G.rofMult=Math.min(0.8, lv*0.1);}},
+    {id:'crit',  name:'Coup critique', desc:'+8% chance +20% dégâts/niv',maxLv:6,  base:70, grow:1.45, color:'#f84',
      apply:(lv)=>{G.critChance=lv*.08;G.critMult=1+lv*.2;}},
-    {id:'pierce',name:'Pénétration',   desc:'Touche +1 ennemi/2 niv',   maxLv:4,  base:100,grow:1.6,  color:'#fa0',
+    {id:'pierce',name:'Pénétration',   desc:'Touche +1 ennemi/2 niv',    maxLv:4,  base:100,grow:1.6,  color:'#fa0',
      apply:(lv)=>{G.pierce=~~(lv/2);}},
   ],
   defense:[
-    {id:'armor', name:'Blindage',      desc:'HP max +30/niveau',        maxLv:10, base:25, grow:1.3,  color:'#4af',
+    {id:'armor', name:'Blindage',      desc:'HP max +30/niveau',         maxLv:10, base:25, grow:1.3,  color:'#4af',
      apply:(lv)=>{const prev=G.maxHp;G.maxHp=100+lv*30;if(lv>0)G.hp=Math.min(G.hp+(G.maxHp-prev),G.maxHp);}},
-    {id:'regen', name:'Régénération',  desc:'+0.3 HP/sec par niveau',   maxLv:8,  base:50, grow:1.35, color:'#4fa',
+    {id:'regen', name:'Régénération',  desc:'+0.3 HP/sec par niveau',    maxLv:8,  base:50, grow:1.35, color:'#4fa',
      apply:(lv)=>{G.regenRate=lv*.3;}},
-    {id:'shield',name:'Bouclier',      desc:'Absorbe 1 coup/3 niv',     maxLv:6,  base:90, grow:1.5,  color:'#08f',
+    {id:'shield',name:'Bouclier',      desc:'Absorbe 1 coup/3 niv',      maxLv:6,  base:90, grow:1.5,  color:'#08f',
      apply:(lv)=>{G.shieldMax=~~(lv/3);}},
-    {id:'range', name:'Zone de sécurité',desc:'Réduit dégâts melee -10%',maxLv:5, base:60, grow:1.4,  color:'#4cf',
+    {id:'range', name:'Zone de sécurité',desc:'Réduit dégâts melee -10%',maxLv:5,  base:60, grow:1.4,  color:'#4cf',
      apply:(lv)=>{G.meleeDmgRed=lv*.1;}},
   ],
   economy:[
-    {id:'reward',name:'Prime',         desc:'+10% crédits/ennemi/niv',  maxLv:8,  base:20, grow:1.3,  color:'#ff4',
+    {id:'reward',name:'Prime',         desc:'+10% crédits/ennemi/niv',   maxLv:8,  base:20, grow:1.3,  color:'#ff4',
      apply:(lv)=>{G.goldMult=1+lv*.1;}},
-    {id:'interest',name:'Intérêts',   desc:'Bonus de vague +8/niveau',  maxLv:6,  base:35, grow:1.35, color:'#fc4',
+    {id:'interest',name:'Intérêts',    desc:'Bonus de vague +8/niveau',  maxLv:6,  base:35, grow:1.35, color:'#fc4',
      apply:(lv)=>{G.waveBonusExtra=lv*8;}},
-    {id:'salvage',name:'Récupération',desc:'+15% crédits si pas de dégâts',maxLv:3,base:80,grow:1.8, color:'#fa4',
+    {id:'salvage',name:'Récupération', desc:'+15% crédits si pas de dégâts',maxLv:3,base:80,grow:1.8,  color:'#fa4',
      apply:(lv)=>{G.salvageLv=lv;}},
   ],
   special:[
@@ -298,26 +285,23 @@ const UPGRADES={
   ],
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// GAME STATE
-// ─────────────────────────────────────────────────────────────────────────────
+// ── GAME STATE ──
 const G={
   hp:100,maxHp:100,gold:0,score:0,wave:1,phase:'idle',
   enemies:[],particles:[],beams:[],
   activeWeaponId:'laser',
   lastShot:0,waveTotal:0,waveKilled:0,
-  // upgrade-driven stats
-  dmgMult:1,rofMult:0,critChance:0,critMult:1,pierce:0,
+  // BUG FIX : rofMult initialisé à 0 (pas de réduction), appliqué en SOUSTRACTION dans tryShoot
+  dmgMult:1, rofMult:0, critChance:0, critMult:1, pierce:0,
   regenRate:0,shieldMax:0,shield:0,meleeDmgRed:0,
   goldMult:1,waveBonusExtra:0,salvageLv:0,
   chainLv:0,chainActive:false,chainTimer:0,
   overclockLv:0,overclockActive:false,lastShotTime:0,
   multishotChance:0,
   waveNoDmg:true,
-  upgradeLevels:{}, // id -> level
+  upgradeLevels:{},
 };
 
-// init upgrade levels
 Object.values(UPGRADES).flat().forEach(u=>{G.upgradeLevels[u.id]=0;});
 let activeCat='offense';
 let kickPitch=0,kickYaw=0;
@@ -381,7 +365,8 @@ function spawnEnemy(){
   const mesh=new THREE.Mesh(geo,mat); mesh.position.set(Math.cos(a)*d,.9+Math.random()*1.8,Math.sin(a)*d); mesh.castShadow=true;
   mesh.add(new THREE.Mesh(new THREE.SphereGeometry(1.6,8,8),new THREE.MeshBasicMaterial({color:new THREE.Color().setHSL(hue,1,.7),transparent:true,opacity:.12,side:THREE.BackSide})));
   scene.add(mesh);
-  G.enemies.push({mesh,hp,maxHp:hp,speed,dead:false,reward:12+G.wave*7});
+  // BUG FIX : ajout des champs slow sur chaque ennemi
+  G.enemies.push({mesh, hp, maxHp:hp, baseSpeed:speed, speed, dead:false, reward:12+G.wave*7, slowTimer:0});
 }
 
 // ── SHOOTING ──
@@ -392,16 +377,25 @@ function rayHitSphere(pos,r){
   if(disc<0)return null;const t=-b-Math.sqrt(disc);if(t<.5||t>65)return null;return origin.clone().addScaledVector(dir,t);
 }
 
+// BUG FIX : applique un slow à un ennemi
+function applySlowToEnemy(e, slowFactor, slowDuration){
+  if(!e || e.dead) return;
+  e.speed = e.baseSpeed * (1 - slowFactor);
+  e.slowTimer = slowDuration;
+  // Teinte bleue visuelle pour indiquer le ralentissement
+  e.mesh.material.emissive.setHex(0x0044ff);
+}
+
 function tryShoot(){
   const now=performance.now();
   const w=getWeapon();
-  const rate=w.baseRate*(1+G.rofMult);
+  // BUG FIX : baseRate * (1 - rofMult) — réduction correcte du délai = tir plus rapide
+  const rate=w.baseRate*(1-G.rofMult);
   if(now-G.lastShot<rate)return;
   G.lastShot=now; G.lastShotTime=now;
   kickPitch+=(.012+Math.random()*.008)*(w.id==='nova'?4:w.id==='void'?2.5:1);
   kickYaw+=(Math.random()-.5)*.014;
 
-  // Surcadence (overclock) : bonus après 5s sans tir
   if(G.overclockLv>0){G.overclockActive=(now-G.lastShotTime>5000);}
 
   const camPos=camera.position.clone();
@@ -426,28 +420,34 @@ function tryShoot(){
       let dmg=~~(w.baseDmg*G.dmgMult);
       if(G.overclockLv>0&&G.overclockActive)dmg=~~(dmg*1.5);
       if(G.chainLv>0&&G.chainActive)dmg=~~(dmg*(1+G.chainLv*.05));
-      // Crit
       if(Math.random()<G.critChance)dmg=~~(dmg*G.critMult);
       doDamage(target,dmg);
-      // Pierce
+      // BUG FIX : appliquer le slow plasma sur l'ennemi touché
+      if(w.slowFactor>0) applySlowToEnemy(target, w.slowFactor, w.slowDuration);
       if(G.pierce>0){
         sorted.slice(1,1+G.pierce).forEach(ne=>{
-          const pp=rayHitSphere(ne.mesh.position,1.4);if(pp)doDamage(ne,~~(dmg*.6));
+          const pp=rayHitSphere(ne.mesh.position,1.4);
+          if(pp){
+            doDamage(ne,~~(dmg*.6));
+            if(w.slowFactor>0) applySlowToEnemy(ne, w.slowFactor, w.slowDuration);
+          }
         });
       }
-      // Lightning chain
       if(w.id==='lightning'){
         sorted.slice(1,4).reduce((last,ne)=>{
           const ep=ne.mesh.position.clone();vfxLightning(last.clone(),ep,w.color,.6);doDamage(ne,~~(dmg*.5));return ep;
         },endP.clone());
       }
-      // Nova AoE
-      if(w.id==='nova')G.enemies.forEach(e=>{if(!e.dead&&e!==target&&e.mesh.position.distanceTo(endP)<11)doDamage(e,~~(dmg*.65));});
+      // BUG FIX : slow plasma sur les ennemis AoE nova aussi
+      if(w.id==='nova')G.enemies.forEach(e=>{
+        if(!e.dead&&e!==target&&e.mesh.position.distanceTo(endP)<11){
+          doDamage(e,~~(dmg*.65));
+        }
+      });
     }
   };
 
   shootOnce(hitEnemy,endPt);
-  // Multitir
   if(G.multishotChance>0&&Math.random()<G.multishotChance)setTimeout(()=>shootOnce(hitEnemy,endPt),60);
 
   const ch=document.getElementById('crosshair');ch.classList.add('firing');setTimeout(()=>ch.classList.remove('firing'),130);
@@ -481,7 +481,6 @@ function killEnemy(e){
   scene.remove(e.mesh);
   const reward=Math.round(e.reward*G.goldMult);
   G.gold+=reward;G.score+=reward*2;G.waveKilled++;
-  // Réaction en chaîne
   if(G.chainLv>0){G.chainActive=true;G.chainTimer=4+G.chainLv*4;}
   updateHUD();
   if(G.waveKilled>=G.waveTotal)endWave();
@@ -491,7 +490,6 @@ function killEnemy(e){
 let wTimer=0,wSpawned=0,wInterval=0;
 function startWave(n){
   G.phase='playing';G.waveKilled=0;wSpawned=0;G.waveNoDmg=true;
-  // shield reset
   if(G.shieldMax>0)G.shield=G.shieldMax;
   G.waveTotal=6+n*5;
   wInterval=Math.max(.38,2.1-n*.1);wTimer=0;
@@ -501,41 +499,33 @@ function startWave(n){
 function endWave(){
   if(G.phase!=='playing')return;G.phase='shop';G.wave++;
   let bonus=25+G.wave*12+G.waveBonusExtra;
-  // Prime de récupération : pas de dégâts reçus
   if(G.salvageLv>0&&G.waveNoDmg)bonus=Math.round(bonus*(1+G.salvageLv*.15));
   G.gold+=bonus;updateHUD();showShop(bonus);
 }
 
-// ── SHOP RENDER ──
+// ── SHOP ──
 function renderShop(){
   document.getElementById('shop-credits-val').textContent=G.gold+' 💰';
   document.getElementById('shop-wave-next').textContent='Vague '+G.wave;
 
-  // Armes
   const wc=document.getElementById('weapon-cards');wc.innerHTML='';
   WEAPONS.forEach(w=>{
-    const unlocked=w.owned||(G.wave-1>=w.unlockWave&&G.gold>=w.cost);
     const canBuy=!w.owned&&G.wave-1>=w.unlockWave&&G.gold>=w.cost;
     const available=w.owned||(G.wave-1>=w.unlockWave);
     const div=document.createElement('div');
     div.className='wcard'+(w.owned?'':(!available?' locked':''))+(G.activeWeaponId===w.id?' selected':'');
     div.innerHTML=`<span class="wcard-icon">${w.icon}</span><div class="wcard-info"><div class="wcard-name">${w.name}</div><div class="wcard-stats">DMG ${w.baseDmg} | RoF ${w.baseRate}ms</div>${!w.owned&&available?`<div class="wcard-cost">${w.cost} 💰</div>`:''}</div>`;
-    if(w.owned){
-      div.onclick=()=>{G.activeWeaponId=w.id;renderShop();};
-    } else if(canBuy){
-      div.onclick=()=>{G.gold-=w.cost;w.owned=true;G.activeWeaponId=w.id;renderShop();updateHUD();};
-    }
+    if(w.owned){div.onclick=()=>{G.activeWeaponId=w.id;renderShop();};}
+    else if(canBuy){div.onclick=()=>{G.gold-=w.cost;w.owned=true;G.activeWeaponId=w.id;renderShop();updateHUD();};}
     wc.appendChild(div);
   });
 
-  // Tabs
   const tabsEl=document.getElementById('upgrade-tabs');tabsEl.innerHTML='';
   UPGRADE_CATS.forEach(cat=>{
     const t=document.createElement('div');t.className='utab'+(activeCat===cat.id?' active':'');
     t.textContent=cat.label;t.onclick=()=>{activeCat=cat.id;renderShop();};tabsEl.appendChild(t);
   });
 
-  // Upgrades
   const grid=document.getElementById('upgrade-grid');grid.innerHTML='';
   const ups=UPGRADES[activeCat];
   ups.forEach(u=>{
@@ -584,21 +574,18 @@ function animate(now){
   requestAnimationFrame(animate);
   const dt=Math.min((now-lastTime)/1000,.05);lastTime=now;
   if(G.phase!=='playing'){renderer.render(scene,camera);return;}
-  // Regen HP
+
   if(G.regenRate>0){G.hp=Math.min(G.maxHp,G.hp+G.regenRate*dt);updateHUD();}
-  // Chain timer
   if(G.chainActive){G.chainTimer-=dt;if(G.chainTimer<=0)G.chainActive=false;}
-  // Overclock
   if(G.overclockLv>0){const noShotSec=(now-G.lastShotTime)/1000;G.overclockActive=noShotSec>5;}
 
-  // camera rotation
   const sens=isMobile?.0025:.002;
   yaw-=mouse.dx*sens;pitch-=mouse.dy*sens;
   pitch=Math.max(-Math.PI*.38,Math.min(Math.PI*.38,pitch));
   mouse.dx=0;mouse.dy=0;
   kickPitch*=.76;kickYaw*=.76;
   camera.quaternion.copy(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),yaw+kickYaw)).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),pitch-kickPitch));
-  // movement
+
   camera.getWorldDirection(_fwd);_fwd.y=0;_fwd.normalize();
   _right.crossVectors(_fwd,new THREE.Vector3(0,1,0)).normalize();
   const mv=new THREE.Vector3();
@@ -612,30 +599,42 @@ function animate(now){
   const xz=new THREE.Vector2(camera.position.x,camera.position.z);
   if(xz.length()>50){xz.setLength(50);camera.position.x=xz.x;camera.position.z=xz.y;}
   camera.position.y=1.7;
-  // shoot
+
   if(mouse.btn||keys['Space']||mFire)tryShoot();
-  // spawn
+
   wTimer+=dt;
   if(wSpawned<G.waveTotal&&wTimer>wInterval){spawnEnemy();wSpawned++;wTimer=0;}
-  // enemies move
+
+  // BUG FIX : gestion du slow timer + restauration de la vitesse et couleur des ennemis
   G.enemies.forEach(e=>{
     if(e.dead)return;
     e.mesh.rotation.x+=dt*1.3;e.mesh.rotation.y+=dt*.9;
+
+    // Slow timer
+    if(e.slowTimer>0){
+      e.slowTimer-=dt;
+      if(e.slowTimer<=0){
+        e.slowTimer=0;
+        e.speed=e.baseSpeed;
+        // Restaurer la couleur émissive d'origine
+        e.mesh.material.emissive.setHSL(0,1,.22);
+      }
+    }
+
     const dir=new THREE.Vector3(-e.mesh.position.x,0,-e.mesh.position.z).normalize();
     e.mesh.position.addScaledVector(dir,e.speed);
     if(e.mesh.position.length()<3){
       const rawDmg=14+G.wave*3;
       const finalDmg=rawDmg*(1-Math.min(.8,G.meleeDmgRed));
-      // Shield absorb
       if(G.shield>0){G.shield--;spawnDeathExpl(e.mesh.position.clone(),0x4444ff);}
       else{G.hp-=finalDmg;G.waveNoDmg=false;flashDamage();}
       spawnDeathExpl(e.mesh.position.clone(),e.mesh.material.color.getHex());scene.remove(e.mesh);e.dead=true;G.waveKilled++;updateHUD();
       if(G.hp<=0){gameOver();return;}if(G.waveKilled>=G.waveTotal)endWave();
     }
   });
-  // beams
+
   for(let i=G.beams.length-1;i>=0;i--){const b=G.beams[i];b.life-=dt;if(b.life<=0){scene.remove(b.mesh);G.beams.splice(i,1);}else if(b.isLight)b.mesh.intensity=b.initInt*(b.life/b.maxLife);else if(b.mesh.material)b.mesh.material.opacity=Math.max(0,b.mesh.material.opacity*.87);}
-  // particles
+
   for(let i=G.particles.length-1;i>=0;i--){
     const p=G.particles[i];p.life-=dt;
     if(p.life<=0){scene.remove(p.mesh);G.particles.splice(i,1);continue;}
@@ -645,7 +644,7 @@ function animate(now){
     else if(p.isMoving){const toT=p.target.clone().sub(p.mesh.position);if(toT.length()<.8){if(p.onArrive)p.onArrive();scene.remove(p.mesh);G.particles.splice(i,1);}else{p.mesh.position.addScaledVector(toT.normalize(),p.speed*dt);if(p.mesh.material)p.mesh.material.opacity=Math.max(0,t);}}
     else if(p.vel){p.mesh.position.addScaledVector(p.vel,dt);p.vel.y-=dt*(p.grav||7);if(p.mesh.material){p.mesh.material.opacity=Math.max(0,t);p.mesh.scale.setScalar(Math.max(.01,t));}}
   }
-  // tourelle anim
+
   ring1.rotation.y+=dt*1.6;ring2.rotation.y-=dt*.9;ring2.rotation.z+=dt*.5;ring3.rotation.x+=dt*.7;ring3.rotation.y+=dt*.4;
   core.material.color.setHSL(.55+Math.sin(now*.003)*.06,1,.7);tLight.intensity=3.5+Math.sin(now*.004)*1.4;
   renderer.render(scene,camera);
